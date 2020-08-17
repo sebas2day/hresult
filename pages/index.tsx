@@ -3,11 +3,13 @@ import Link from 'next/link'
 import {GetStaticProps} from 'next';
 import {getSettings} from '../api/posts';
 import {SettingsResponse} from '@tryghost/content-api';
+import { Parallax, ParallaxProvider } from 'react-scroll-parallax';
 
 type SettingsProps = { settings: SettingsResponse };
 
 export default function Home({ settings }: SettingsProps) {
   return (
+    <ParallaxProvider>
     <div className="page">
       <Head>
         <title>Create Next App</title>
@@ -40,13 +42,15 @@ export default function Home({ settings }: SettingsProps) {
           <img src="noloc.jpg" />
         </div>
       </header>
-      <div className="cover">
-        <img src={settings.cover_image}></img>
-        <div className="coverDescription">
-          <h2 className="title is-2 has-text-white">van <i>overleven</i></h2>
-          <h3 className="title is-3 has-text-white">naar <b>moeiteloos</b> leven en werken</h3>
-        </div>
-      </div>
+      <Parallax className="cover" y={[-50, 25]}>
+          <img src={settings.cover_image}></img>
+
+          <Parallax className="coverDescription" y={[-50, 35]}>
+            <h2 className="title is-2 has-text-white">van <i>overleven</i></h2>
+            <h3 className="title is-3 has-text-white">naar <b>moeiteloos</b> leven en werken</h3>
+          </Parallax>
+      </Parallax>
+      
       <div className="hero">
         <div className="heroContent">
           <div className="heroRow">
@@ -152,7 +156,8 @@ export default function Home({ settings }: SettingsProps) {
           <img src="/vercel.svg" alt="Vercel Logo" className="logo" />
         </a>
       </footer>
-    </div>  )
+    </div>  
+    </ParallaxProvider>)
 }
 
 
