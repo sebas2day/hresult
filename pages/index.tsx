@@ -66,7 +66,7 @@ export default function Home({ settings }: SettingsProps) {
       </div>
 
       <div className="chord">
-        <img className="chordTop} src={settings.logo" />
+        <img className="chordTop" src={settings.logo} />
         <div className="chordBelow">
           <div className="firstBlock">
             <h2 className="title is-2">Loopbaan- &amp; Starterscoaching</h2>
