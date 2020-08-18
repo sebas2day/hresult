@@ -95,11 +95,11 @@ p {
   margin-left: -25%;
   position: relative;
 
-  .heroContent {
+  .hero__content {
     padding: 3rem 4rem;
   }
 
-  .heroRow {
+  .hero__row {
     display: flex;
     gap: 3rem;
 
@@ -127,11 +127,11 @@ p {
   justify-content: end;
   width: 100%;
 
-  .chordTop {
+  .chord__top {
     margin-left: 50%;
     align-self: center;
   }
-  .chordBelow {
+  .chord__below {
     border-top: 0.25rem solid #df5027;
     border-bottom: 1px solid #ddd;
     background: #f2f2f2;
@@ -145,17 +145,57 @@ p {
   }
 }
 
-.twoColumn {
+.block-card {
+  margin-top: 5rem;
+  margin-bottom: 5rem;
+
+  .title {
+    margin: -1.25rem -1.25rem 1.25rem -1.25rem;
+    background: #df5027;
+    padding: 1rem 2rem;
+  }
+
+  ol {
+    list-style: none;
+    padding-left: 2.5rem;
+
+    li {
+      position: relative;
+      display: flex;
+      align-items: center;
+      counter-increment: inst;
+      height: 3rem;
+
+      &::before {
+        position: absolute;
+        left: -3.5rem;
+        display: block;
+        justify-content: center;
+        text-align: center;
+        line-height: 2.5rem;
+        height: 2.5rem;
+        width: 2.5rem;
+        background: #404040;
+        border-radius: 50%;
+        color: white;
+        content: counter(inst);
+      }
+    }
+  }
+
+}
+
+.block-column__content {
   column-count: 2;
   column-gap: 5rem;
 }
 
-.threeColumn {
+.block-column__content-3 {
   column-count: 3;
   column-gap: 5rem;
 }
 
-.firstBlock {
+.chord__block {
   width: 50%;
   display: flex;
   flex-direction: column;
@@ -163,12 +203,12 @@ p {
   text-align: center;
 }
 
-.secondBlock {
+.block-column {
   padding: 9rem;
   max-width: 96rem;
 }
 
-.thirdBlock {
+.block-column--alternate {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -177,7 +217,7 @@ p {
   background: #404040;
   box-shadow: inset 0 -1rem 1rem -1rem #000000;
 
-  .threeColumn {
+  .block-column__content-3 {
     padding: 0 9rem;
     margin-top: 3rem;
     max-width: 96rem;
@@ -212,28 +252,6 @@ p {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.title a {
-  color: #0070f3;
-  text-decoration: none;
-}
-
-.title a:hover,
-.title a:focus,
-.title a:active {
-  text-decoration: underline;
-}
-
-.title {
-  margin: 0;
-  line-height: 1.15;
-  font-size: 4rem;
-}
-
-.title,
-.description {
-  text-align: center;
 }
 
 .description {

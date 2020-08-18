@@ -45,15 +45,15 @@ export default function Home({ settings }: SettingsProps) {
       <Parallax className="cover" y={[-50, 25]}>
           <img src={settings.cover_image}></img>
 
-          <Parallax className="coverDescription" y={[-50, 35]}>
+          <Parallax className="coverDescription" y={[50, -35]}>
             <h2 className="title is-2 has-text-white">van <i>overleven</i></h2>
             <h3 className="title is-3 has-text-white">naar <b>moeiteloos</b> leven en werken</h3>
           </Parallax>
       </Parallax>
       
       <div className="hero">
-        <div className="heroContent">
-          <div className="heroRow">
+        <div className="hero__content">
+          <div className="hero__row">
             <img src="adriaan.jpg"></img>
             <div>
               <h2 className="title is-4">Mijn grootste passie is om mensen te helpen meer plezier in hun werk te laten krijgen</h2>
@@ -66,9 +66,9 @@ export default function Home({ settings }: SettingsProps) {
       </div>
 
       <div className="chord">
-        <img className="chordTop" src={settings.logo} />
-        <div className="chordBelow">
-          <div className="firstBlock">
+        <img className="chord__top" src={settings.logo} />
+        <div className="chord__below">
+          <div className="chord__block">
             <h2 className="title is-2">Loopbaan- &amp; Starterscoaching</h2>
             <p>
             Etiam ac dui ut elit tincidunt mollis. Aliquam posuere condimentum tortor, id commodo tortor varius in. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Proin ultrices ipsum at tempus tristique. Quisque tincidunt eleifend eros, sed elementum mi posuere a. Sed egestas ultricies velit quis accumsan. Phasellus congue mauris justo. Praesent bibendum molestie facilisis. Vivamus eleifend, neque ut fringilla mollis, turpis sem conseq.
@@ -77,25 +77,25 @@ export default function Home({ settings }: SettingsProps) {
         </div>
       </div>
 
-      <div className="inBetween">
-        Het 6 stappenplan bij loopbaancoaching
+      <div className="block-card box">
+        <h4 className="title is-4 has-text-white">Het 6 stappenplan bij loopbaancoaching</h4>
+        <div className="content">
+          <p>“Wordt met het 6-stappenplan de regisseur van je leven en carrière!”</p>
 
-        “Wordt met het 6-stappenplan de regisseur van je leven en
-        carrière!”
-        Stap 1. Durf te dromen
-        Stap 2. Ontdek jouw kernkwaliteiten en competenties
-        Stap 3. Krijg jouw polariteiten in balans; hoe zorg je dat je niet doorschiet in je
-        kwaliteiten
-        Stap 4. Ga je blokkades overwinnen, welke belemmerende overtuigingen
-        houden je tegen?
-        Stap 5. Stel je focus scherp op: wie ben ik (en wie ben ik niet), wat kan ik (en
-        wat kan ik niet) en wat wil ik (en wat wil ik niet)
-        Stap 6. Kom in actie! Tijd om de juiste stappen te zetten
+          <ol>
+            <li>Durf te dromen</li>
+            <li>Ontdek jouw kernkwaliteiten en competenties</li>
+            <li>Krijg jouw polariteiten in balans; hoe zorg je dat je niet doorschiet in je kwaliteiten</li>
+            <li>Ga je blokkades overwinnen, welke belemmerende overtuigingen houden je tegen?</li>
+            <li>Stel je focus scherp op: wie ben ik (en wie ben ik niet), wat kan ik (en wat kan ik niet) en wat wil ik (en wat wil ik niet)</li>
+            <li>Kom in actie! Tijd om de juiste stappen te zetten</li>
+          </ol>
+        </div>
       </div>
 
-      <div className="secondBlock">
+      <div className="block-column">
         <h2 className="title is-2">Methode</h2>
-        <div className="twoColumn">
+        <div className="block-column__content">
           <p>
             Proin quis ipsum in arcu finibus molestie. Nulla feugiat quis ex tempor commodo. In rhoncus mattis tellus, nec convallis lorem ullamcorper ac. Proin dapibus augue eu lorem dapibus efficitur. Donec iaculis mi purus, quis congue elit tristique et. Aenean dictum in sapien at eleifend. Pellentesque pretium malesuada tellus non facilisis. Vivamus erat ligula, maximus at ornare consequat, tempus nec elit. Nulla sit amet auctor purus. Nam tincidunt dapibus enim non feugiat. Nulla dignissim blandit nulla, id luctus dui scelerisque id. Etiam eget nibh nec tortor faucibus tincidunt.
           </p>
@@ -111,9 +111,9 @@ export default function Home({ settings }: SettingsProps) {
         </div>
       </div>
 
-      <div className="thirdBlock">
+      <div className="block-column--alternate">
         <h3 className="title is-3 has-text-white">dit zeggen anderen over mij...</h3>
-        <div className="threeColumn">
+        <div className="block-column__content-3">
           <div>
             <h4 className="title is-5 has-text-white">Marianne</h4>
             <p>Lorem ipsum nulla quis dapibus dolor. Nunc vestibulum interdum nibh, ac sodales lacus dignissim suscipit. Curabitur convallis viverra tincidunt.</p>
