@@ -1,8 +1,13 @@
 import GhostContentAPI, {PostsOrPages, SettingsResponse} from '@tryghost/content-api';
 
+const apiKey = process.env.GHOST_KEY;
+if (!apiKey) {
+  throw new Error("No Ghost API key");
+}
+
 const api = new GhostContentAPI({
-  url: 'http://localhost:2368',
-  key: '1b7ad94b7a014bc820c42056e7',
+  url: process.env.GHOST_URL || 'http://localhost:2368',
+  key: apiKey,
   version: 'v3'
 });
 
