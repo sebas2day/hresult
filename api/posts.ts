@@ -14,6 +14,10 @@ export async function getSinglePost(slug: string) {
   return await api.posts.read({ slug });
 }
 
+export async function getPage(slug: string) {
+  return await api.pages.read({ slug })
+}
+
 export async function getSettings(): Promise<SettingsResponse> {
   return await api.settings.browse({ limit: 'all' });
 }

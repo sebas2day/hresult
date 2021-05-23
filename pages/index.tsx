@@ -1,18 +1,32 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import {GetStaticProps} from 'next';
-import {getSettings} from '../api/posts';
-import {SettingsResponse} from '@tryghost/content-api';
+import {getPage, getSettings} from '../api/posts';
+import {PostOrPage, SettingsResponse} from '@tryghost/content-api';
 import { Parallax, ParallaxProvider } from 'react-scroll-parallax';
+import { CSSProperties } from 'react';
+import { getSectionColumnsInfo, getSectionInfo, getSections, getSectionWitImageInfo } from '../lib/sections';
 
-type SettingsProps = { settings: SettingsResponse };
+type HomeProps = { 
+  settings: SettingsResponse,
+  page: PostOrPage
+};
 
-export default function Home({ settings }: SettingsProps) {
+export default function Home({ settings, page }: HomeProps) {
+
+  const sections = getSections(page.html);
+  const intro = Array.from(sections[0].childNodes).map(node => node.toString());
+  const hero = sections[1] ? getSectionWitImageInfo(sections[1]) : null;
+  const chord = sections[1] ? getSectionInfo(sections[2]) : null;
+  const block1 = sections[1] ? getSectionInfo(sections[3]) : null;
+  const block2 = sections[1] ? getSectionInfo(sections[4]) : null;
+  const block3 = sections[1] ? getSectionColumnsInfo(sections[5]) : null;
+
   return (
     <ParallaxProvider>
     <div className="page">
       <Head>
-        <title>Create Next App</title>
+        <title>{settings.title} | {settings.description}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -20,7 +34,7 @@ export default function Home({ settings }: SettingsProps) {
         <nav className="navbar" role="navigation" aria-label="main navigation">
           <div className="navbar-brand">
             <a className="navbar-item">
-              HResult
+              {settings.title}
             </a>
             <a id="burger" role="button" className="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarmenu">
               <span aria-hidden="true"></span>
@@ -46,88 +60,67 @@ export default function Home({ settings }: SettingsProps) {
           <img src={settings.cover_image}></img>
 
           <Parallax className="coverDescription" y={[50, -35]}>
-            <h2 className="title is-2 has-text-white">van <i>overleven</i></h2>
-            <h3 className="title is-3 has-text-white">naar <b>moeiteloos</b> leven en werken</h3>
+            {intro.map((line, i) => i % 2 === 0 ? (
+              <h2 className="title is-2 has-text-white" dangerouslySetInnerHTML={{__html: line}} />
+            ) : (
+              <h3 className="title is-3 has-text-white" dangerouslySetInnerHTML={{__html: line}} />
+            ))}
           </Parallax>
       </Parallax>
       
+      {hero ?
       <div className="hero">
         <div className="hero__content">
           <div className="hero__row">
-            <img src="adriaan.jpg"></img>
+            {hero.image ? <img src={hero.image} /> : null}
             <div>
-              <h2 className="title is-4">Mijn grootste passie is om mensen te helpen meer plezier in hun werk te laten krijgen</h2>
-              <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sed purus quis enim ultrices congue aliquam non felis. Ut in consectetur dolor. Curabitur in dui et felis tempus aliquam ut ut dolor. Suspendisse lectus leo, consectetur a odio non, congue semper urna. Vivamus laoreet in erat et euismod. Donec dapibus tincidunt luctus. Integer posuere orci nulla, in aliquam urna fermentum ut. Fusce maximus cursus elit, non aliquet dui feugiat vel. Nam in est ut nibh rutrum aliquam in vel tellus. 
-              </p>
+              <h2 className="title is-4">{hero.title}</h2>
+              <div dangerouslySetInnerHTML={{__html: hero.content}} />
             </div>
           </div>
         </div>
       </div>
+      : null }
 
+      {chord ?
       <div className="chord">
         <img className="chord__top" src={settings.logo} />
         <div className="chord__below">
           <div className="chord__block">
-            <h2 className="title is-2">Loopbaan- &amp; Starterscoaching</h2>
-            <p>
-            Etiam ac dui ut elit tincidunt mollis. Aliquam posuere condimentum tortor, id commodo tortor varius in. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Proin ultrices ipsum at tempus tristique. Quisque tincidunt eleifend eros, sed elementum mi posuere a. Sed egestas ultricies velit quis accumsan. Phasellus congue mauris justo. Praesent bibendum molestie facilisis. Vivamus eleifend, neque ut fringilla mollis, turpis sem conseq.
-            </p>
+            <h2 className="title is-2">{chord.title}</h2>
+            <div dangerouslySetInnerHTML={{__html: chord.content}} />
           </div>
         </div>
       </div>
+      : null }
 
+      {block1 ?
       <div className="block-card box">
-        <h4 className="title is-4 has-text-white">Het 6 stappenplan bij loopbaancoaching</h4>
-        <div className="content">
-          <p>“Wordt met het 6-stappenplan de regisseur van je leven en carrière!”</p>
-
-          <ol>
-            <li>Durf te dromen</li>
-            <li>Ontdek jouw kernkwaliteiten en competenties</li>
-            <li>Krijg jouw polariteiten in balans; hoe zorg je dat je niet doorschiet in je kwaliteiten</li>
-            <li>Ga je blokkades overwinnen, welke belemmerende overtuigingen houden je tegen?</li>
-            <li>Stel je focus scherp op: wie ben ik (en wie ben ik niet), wat kan ik (en wat kan ik niet) en wat wil ik (en wat wil ik niet)</li>
-            <li>Kom in actie! Tijd om de juiste stappen te zetten</li>
-          </ol>
-        </div>
+        <h4 className="title is-4 has-text-white">{block1.title}</h4>
+        <div dangerouslySetInnerHTML={{__html: block1.content}} />
       </div>
+      : null }
 
+      {block2 ?
       <div className="block-column">
-        <h2 className="title is-2">Methode</h2>
-        <div className="block-column__content">
-          <p>
-            Proin quis ipsum in arcu finibus molestie. Nulla feugiat quis ex tempor commodo. In rhoncus mattis tellus, nec convallis lorem ullamcorper ac. Proin dapibus augue eu lorem dapibus efficitur. Donec iaculis mi purus, quis congue elit tristique et. Aenean dictum in sapien at eleifend. Pellentesque pretium malesuada tellus non facilisis. Vivamus erat ligula, maximus at ornare consequat, tempus nec elit. Nulla sit amet auctor purus. Nam tincidunt dapibus enim non feugiat. Nulla dignissim blandit nulla, id luctus dui scelerisque id. Etiam eget nibh nec tortor faucibus tincidunt.
-          </p>
-          <p>
-            Ut eu mollis urna, id varius leo. Aenean vehicula commodo magna, eu eleifend metus ultricies efficitur. Vivamus sollicitudin lorem id mauris lacinia vestibulum. Aliquam bibendum non mauris in scelerisque. Maecenas a efficitur urna, vitae viverra ipsum. Nunc ullamcorper elit et lorem mollis consectetur.
-          </p>
-          <p>
-          Nulla quis dapibus dolor. Nunc vestibulum interdum nibh, ac sodales lacus dignissim suscipit. Curabitur convallis viverra tincidunt. Fusce dolor libero, varius vitae ultrices ut, egestas id magna. Nunc eu eros vitae quam finibus pellentesque id non mauris. Sed ante orci, eleifend eget imperdiet sed, molestie in nunc.
-          </p>
-          <p>
-            Proin quis ipsum in arcu finibus molestie. Nulla feugiat quis ex tempor commodo. In rhoncus mattis tellus, nec convallis lorem ullamcorper ac. Proin dapibus augue eu lorem dapibus efficitur. Donec iaculis mi purus, quis congue elit tristique et. Aenean dictum in sapien at eleifend. Pellentesque pretium malesuada tellus non facilisis.
-          </p>
-        </div>
+        <h2 className="title is-2">{block2.title}</h2>
+        <div className="block-column__content" dangerouslySetInnerHTML={{__html: block2.content}} />
       </div>
+      : null }
 
-      <div className="block-column--alternate">
-        <h3 className="title is-3 has-text-white">dit zeggen anderen over mij...</h3>
-        <div className="block-column__content-3">
-          <div>
-            <h4 className="title is-5 has-text-white">Marianne</h4>
-            <p>Lorem ipsum nulla quis dapibus dolor. Nunc vestibulum interdum nibh, ac sodales lacus dignissim suscipit. Curabitur convallis viverra tincidunt.</p>
-          </div>
-          <div>
-            <h4 className="title is-5 has-text-white">Tim</h4>
-            <p>Lorem ipsum nulla quis dapibus dolor. Nunc vestibulum interdum nibh, ac sodales lacus dignissim suscipit. Curabitur convallis viverra tincidunt.</p>
-          </div>
-          <div>
-            <h4 className="title is-5 has-text-white">Lisette</h4>
-            <p>Lorem ipsum nulla quis dapibus dolor. Nunc vestibulum interdum nibh, ac sodales lacus dignissim suscipit. Curabitur convallis viverra tincidunt.</p>
-          </div>
+      {block3 ?
+      <div className="block-column--grid block-column--alternate">
+        <h3 className="title is-3 has-text-white">{block3.title}</h3>
+        <div className="block-column__content" style={{'--columns': block3.columns.length} as CSSProperties}>
+          {block3.columns.map(column => (
+            <div>
+              <h4 className="title is-5 has-text-white">{column.subtitle}</h4>
+              <div dangerouslySetInnerHTML={{__html: column.content}} />
+            </div>
+          ))}
         </div>
       </div>
+      : null }
 
       <div className="fourthBlock">
         <button className="button is-large is-primary">neem contact op voor een gesprek</button>
@@ -161,9 +154,10 @@ export default function Home({ settings }: SettingsProps) {
 }
 
 
-export const getStaticProps: GetStaticProps<SettingsProps> = async ({ params }) => {
+export const getStaticProps: GetStaticProps<HomeProps> = async ({ params }) => {
   const settings = await getSettings();
+  const page = await getPage('home')
   return {
-    props: { settings }
+    props: { settings, page }
   }
 }
