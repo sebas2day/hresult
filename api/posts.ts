@@ -2,7 +2,7 @@ import GhostContentAPI, {PostsOrPages, SettingsResponse} from '@tryghost/content
 
 const api = new GhostContentAPI({
   url: 'http://localhost:2368',
-  key: 'e3fce7937c9ea9f8db0ba92835',
+  key: '1b7ad94b7a014bc820c42056e7',
   version: 'v3'
 });
 
